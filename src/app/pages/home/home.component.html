@@ -1,64 +1,74 @@
-<section class="hero">
-  <div class="container">
-    <h1>Il Blog</h1>
-    <p>Articoli, idee e riflessioni gestiti con Builder.io</p>
+<section class="bg-[#1a1a2e] py-20 text-center">
+  <div class="max-w-6xl mx-auto px-6">
+    <h1 class="text-5xl sm:text-6xl font-extrabold text-white tracking-tight mb-4">Il Blog</h1>
+    <p class="text-lg text-white/50">Articoli, idee e riflessioni gestiti con Builder.io</p>
   </div>
 </section>
 
-<section class="posts-section">
-  <div class="container">
+<section class="py-16 px-6">
+  <div class="max-w-6xl mx-auto">
 
     @if (loading()) {
-      <div class="state-box">
-        <div class="spinner"></div>
+      <div class="flex flex-col items-center gap-4 py-24 text-gray-400">
+        <div class="w-9 h-9 rounded-full border-[3px] border-gray-200 border-t-[#e94560] animate-spin"></div>
         <p>Caricamento articoli...</p>
       </div>
     }
 
     @if (error()) {
-      <div class="state-box error">
+      <div class="flex flex-col items-center gap-4 py-24 text-red-500">
         <p>{{ error() }}</p>
       </div>
     }
 
     @if (!loading() && !error()) {
       @if (posts().length === 0) {
-        <div class="state-box">
+        <div class="flex flex-col items-center gap-6 py-24 text-gray-400">
           <p>Nessun articolo trovato. Crea il tuo primo post su Builder.io!</p>
-          <a href="https://builder.io/content" target="_blank" class="btn-primary">
+          <a href="https://builder.io/content" target="_blank"
+             class="px-6 py-3 bg-[#e94560] text-white rounded-lg font-semibold text-sm hover:opacity-85 transition-opacity">
             Vai a Builder.io
           </a>
         </div>
       } @else {
-        <div class="posts-grid">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           @for (post of posts(); track post.id) {
-            <article class="post-card">
+            <article class="bg-white rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+
               @if (post.data?.image) {
-                <a [routerLink]="['/blog', getSlug(post)]" class="card-image-link">
-                  <img [src]="post.data.image" [alt]="post.data?.title ?? post.name" />
+                <a [routerLink]="['/blog', getSlug(post)]" class="block aspect-video overflow-hidden">
+                  <img [src]="post.data.image" [alt]="post.data?.title ?? post.name"
+                       class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
                 </a>
               }
-              <div class="card-body">
-                <div class="card-meta">
+
+              <div class="p-6">
+                <div class="flex gap-3 text-xs text-gray-400 mb-2">
                   @if (post.data?.author) {
-                    <span class="author">{{ post.data.author }}</span>
+                    <span class="font-semibold">{{ post.data.author }}</span>
                   }
                   @if (post.data?.date) {
-                    <span class="date">{{ formatDate(post.data.date) }}</span>
+                    <span>{{ formatDate(post.data.date) }}</span>
                   }
                 </div>
-                <h2 class="card-title">
-                  <a [routerLink]="['/blog', getSlug(post)]">
+
+                <h2 class="text-lg font-bold leading-snug tracking-tight mb-2">
+                  <a [routerLink]="['/blog', getSlug(post)]"
+                     class="text-[#1a1a2e] hover:text-[#e94560] transition-colors">
                     {{ post.data?.title ?? post.name }}
                   </a>
                 </h2>
+
                 @if (post.data?.blurb) {
-                  <p class="card-blurb">{{ post.data.blurb }}</p>
+                  <p class="text-gray-500 text-sm leading-relaxed line-clamp-3 mb-4">{{ post.data.blurb }}</p>
                 }
-                <a [routerLink]="['/blog', getSlug(post)]" class="read-more">
+
+                <a [routerLink]="['/blog', getSlug(post)]"
+                   class="text-sm font-semibold text-[#e94560] hover:opacity-75 transition-opacity">
                   Leggi l'articolo →
                 </a>
               </div>
+
             </article>
           }
         </div>

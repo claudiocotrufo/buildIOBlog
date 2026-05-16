@@ -1,21 +1,22 @@
-<header class="site-header">
-  <div class="container">
-    <a routerLink="/" class="logo">
-      <span class="logo-dot"></span>
+<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-gray-200">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a routerLink="/" class="flex items-center gap-2 text-xl font-bold text-[#1a1a2e] hover:opacity-75 transition-opacity">
+      <span class="w-2 h-2 rounded-full bg-[#e94560]"></span>
       MyBlog
     </a>
     <nav>
-      <a routerLink="/">Home</a>
+      <a routerLink="/" class="text-gray-500 text-sm font-medium hover:text-gray-900 transition-colors">Home</a>
     </nav>
   </div>
 </header>
 
-<main>
+<main class="min-h-[calc(100vh-64px-60px)]">
   <router-outlet />
 </main>
 
-<footer class="site-footer">
-  <div class="container">
-    <p>© 2026 MyBlog — Powered by <a href="https://www.builder.io" target="_blank">Builder.io</a></p>
-  </div>
+<footer class="border-t border-gray-200 py-5 text-center">
+  <p class="text-gray-400 text-sm">
+    © 2026 MyBlog — Powered by
+    <a href="https://www.builder.io" target="_blank" class="text-[#e94560] font-semibold hover:opacity-80">Builder.io</a>
+  </p>
 </footer>

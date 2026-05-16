@@ -1,47 +1,59 @@
 @if (loading()) {
-  <div class="state-box">
-    <div class="spinner"></div>
+  <div class="flex flex-col items-center gap-4 py-24 text-gray-400">
+    <div class="w-9 h-9 rounded-full border-[3px] border-gray-200 border-t-[#e94560] animate-spin"></div>
     <p>Caricamento articolo...</p>
   </div>
 }
 
 @if (!loading() && notFound()) {
-  <div class="state-box">
-    <h2>Articolo non trovato</h2>
+  <div class="flex flex-col items-center gap-5 py-24 text-gray-400">
+    <h2 class="text-2xl font-bold text-[#1a1a2e]">Articolo non trovato</h2>
     <p>L'articolo che cerchi non esiste o è stato rimosso.</p>
-    <a routerLink="/" class="btn-back">← Torna alla home</a>
+    <a routerLink="/" class="px-6 py-3 bg-[#1a1a2e] text-white rounded-lg font-semibold text-sm hover:opacity-85 transition-opacity">
+      ← Torna alla home
+    </a>
   </div>
 }
 
 @if (!loading() && content()) {
-  <div class="post-wrapper">
-    <div class="post-header container">
-      <a routerLink="/" class="back-link">← Tutti gli articoli</a>
+  <div class="pb-20">
+
+    <div class="max-w-3xl mx-auto px-6 pt-12 pb-8">
+      <a routerLink="/" class="text-sm font-semibold text-[#e94560] hover:opacity-75 transition-opacity">
+        ← Tutti gli articoli
+      </a>
+
       @if (content()?.data?.['title']) {
-        <h1>{{ content()?.data?.['title'] }}</h1>
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-[#1a1a2e] tracking-tight leading-tight mt-6 mb-4">
+          {{ content()?.data?.['title'] }}
+        </h1>
       }
-      <div class="post-meta">
+
+      <div class="flex gap-4 text-sm text-gray-400">
         @if (content()?.data?.['author']) {
-          <span class="author">{{ content()?.data?.['author'] }}</span>
+          <span class="font-semibold">{{ content()?.data?.['author'] }}</span>
         }
         @if (content()?.data?.['date']) {
-          <span class="date">{{ formatDate(content()?.data?.['date']) }}</span>
+          <span>{{ formatDate(content()?.data?.['date']) }}</span>
         }
       </div>
     </div>
 
     @if (content()?.data?.['image']) {
-      <div class="hero-image">
-        <img [src]="content()?.data?.['image']" [alt]="content()?.data?.['title'] ?? 'Immagine articolo'" />
+      <div class="max-w-6xl mx-auto px-6 mb-12">
+        <img [src]="content()?.data?.['image']"
+             [alt]="content()?.data?.['title'] ?? 'Immagine articolo'"
+             class="w-full max-h-[500px] object-cover rounded-xl" />
       </div>
     }
 
-    <div class="builder-content-wrap">
+    <div class="builder-wrap max-w-3xl mx-auto px-6">
       <builder-content
         [content]="content()!"
         [model]="'blog-article'"
         [apiKey]="apiKey"
       />
     </div>
+
   </div>
 }
