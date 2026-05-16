@@ -1,4 +1,5 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Content, fetchOneEntry, isPreviewing, BuilderContent } from '@builder.io/sdk-angular';
 import { environment } from '../../../environments/environment';
@@ -10,12 +11,13 @@ import { environment } from '../../../environments/environment';
   styleUrl: './blog-post.component.scss'
 })
 export class BlogPostComponent implements OnInit {
+  private platformId = inject(PLATFORM_ID);
+  private route = inject(ActivatedRoute);
+
   content = signal<BuilderContent | null>(null);
   loading = signal(true);
   notFound = signal(false);
   apiKey = environment.builderApiKey;
-
-  constructor(private route: ActivatedRoute) {}
 
   async ngOnInit() {
     const slug = this.route.snapshot.paramMap.get('slug') ?? '';
@@ -28,12 +30,13 @@ export class BlogPostComponent implements OnInit {
         userAttributes: { urlPath }
       });
 
-      if (entry || isPreviewing()) {
+      const previewing = isPlatformBrowser(this.platformId) && isPreviewing();
+      if (entry || previewing) {
         this.content.set(entry);
       } else {
         this.notFound.set(true);
       }
-    } catch (e) {
+    } catch {
       this.notFound.set(true);
     } finally {
       this.loading.set(false);

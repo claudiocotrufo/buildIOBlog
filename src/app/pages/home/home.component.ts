@@ -1,6 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { fetchEntries, BuilderContent } from '@builder.io/sdk-angular';
+import { fetchEntries } from '@builder.io/sdk-angular';
 import { environment } from '../../../environments/environment';
 
 interface BlogPost {
@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
         options: { limit: 20 }
       });
       this.posts.set((entries ?? []) as BlogPost[]);
-    } catch (e) {
+    } catch {
       this.error.set('Impossibile caricare gli articoli. Verifica la configurazione di Builder.io.');
     } finally {
       this.loading.set(false);
