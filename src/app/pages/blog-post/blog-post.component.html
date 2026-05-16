@@ -1,0 +1,47 @@
+@if (loading()) {
+  <div class="state-box">
+    <div class="spinner"></div>
+    <p>Caricamento articolo...</p>
+  </div>
+}
+
+@if (!loading() && notFound()) {
+  <div class="state-box">
+    <h2>Articolo non trovato</h2>
+    <p>L'articolo che cerchi non esiste o è stato rimosso.</p>
+    <a routerLink="/" class="btn-back">← Torna alla home</a>
+  </div>
+}
+
+@if (!loading() && content()) {
+  <div class="post-wrapper">
+    <div class="post-header container">
+      <a routerLink="/" class="back-link">← Tutti gli articoli</a>
+      @if (content()?.data?.['title']) {
+        <h1>{{ content()?.data?.['title'] }}</h1>
+      }
+      <div class="post-meta">
+        @if (content()?.data?.['author']) {
+          <span class="author">{{ content()?.data?.['author'] }}</span>
+        }
+        @if (content()?.data?.['date']) {
+          <span class="date">{{ formatDate(content()?.data?.['date']) }}</span>
+        }
+      </div>
+    </div>
+
+    @if (content()?.data?.['image']) {
+      <div class="hero-image">
+        <img [src]="content()?.data?.['image']" [alt]="content()?.data?.['title'] ?? 'Immagine articolo'" />
+      </div>
+    }
+
+    <div class="builder-content-wrap">
+      <builder-content
+        [content]="content()!"
+        [model]="'blog-article'"
+        [apiKey]="apiKey"
+      />
+    </div>
+  </div>
+}

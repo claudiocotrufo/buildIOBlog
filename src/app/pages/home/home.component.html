@@ -1,0 +1,69 @@
+<section class="hero">
+  <div class="container">
+    <h1>Il Blog</h1>
+    <p>Articoli, idee e riflessioni gestiti con Builder.io</p>
+  </div>
+</section>
+
+<section class="posts-section">
+  <div class="container">
+
+    @if (loading()) {
+      <div class="state-box">
+        <div class="spinner"></div>
+        <p>Caricamento articoli...</p>
+      </div>
+    }
+
+    @if (error()) {
+      <div class="state-box error">
+        <p>{{ error() }}</p>
+      </div>
+    }
+
+    @if (!loading() && !error()) {
+      @if (posts().length === 0) {
+        <div class="state-box">
+          <p>Nessun articolo trovato. Crea il tuo primo post su Builder.io!</p>
+          <a href="https://builder.io/content" target="_blank" class="btn-primary">
+            Vai a Builder.io
+          </a>
+        </div>
+      } @else {
+        <div class="posts-grid">
+          @for (post of posts(); track post.id) {
+            <article class="post-card">
+              @if (post.data?.image) {
+                <a [routerLink]="['/blog', getSlug(post)]" class="card-image-link">
+                  <img [src]="post.data.image" [alt]="post.data?.title ?? post.name" />
+                </a>
+              }
+              <div class="card-body">
+                <div class="card-meta">
+                  @if (post.data?.author) {
+                    <span class="author">{{ post.data.author }}</span>
+                  }
+                  @if (post.data?.date) {
+                    <span class="date">{{ formatDate(post.data.date) }}</span>
+                  }
+                </div>
+                <h2 class="card-title">
+                  <a [routerLink]="['/blog', getSlug(post)]">
+                    {{ post.data?.title ?? post.name }}
+                  </a>
+                </h2>
+                @if (post.data?.blurb) {
+                  <p class="card-blurb">{{ post.data.blurb }}</p>
+                }
+                <a [routerLink]="['/blog', getSlug(post)]" class="read-more">
+                  Leggi l'articolo →
+                </a>
+              </div>
+            </article>
+          }
+        </div>
+      }
+    }
+
+  </div>
+</section>
