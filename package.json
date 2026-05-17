@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "set-env": "node scripts/set-env.js",
     "start": "ng analytics off && ng serve --proxy-config proxy.conf.json",
     "serve:api": "node server/dev-api-server.mjs",
     "build": "ng build",
@@ -22,7 +21,6 @@
     "@angular/platform-server": "^21.2.0",
     "@angular/router": "^21.2.0",
     "@angular/ssr": "^21.2.11",
-    "@builder.io/sdk-angular": "^0.25.2",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"

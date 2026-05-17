@@ -39,9 +39,8 @@ testem.log
 /typings
 __screenshots__/
 
-# Environment (contiene la API key — non committare)
+# Environment
 .env
-src/environments/environment.ts
 
 # System files
 .DS_Store
