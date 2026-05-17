@@ -126,6 +126,16 @@ a {
     background: var(--depths);
   }
 
+  /* Section break ⁂ */
+  .section-break {
+    text-align: center;
+    color: var(--gold-dim);
+    font-size: 1.1rem;
+    letter-spacing: 0.5em;
+    margin: 2.5em 0;
+    user-select: none;
+  }
+
   /* Drop cap */
   > p:first-of-type::first-letter {
     font-family: 'Playfair Display', serif;

@@ -1,6 +1,8 @@
 {
   "id": "1",
   "slug": "benvenuto-nel-blog",
+  "category": "meta",
+  "tags": ["blog"],
   "title": "Benvenuto nel blog",
   "blurb": "Il primo articolo del blog. Da qui in poi tutto il contenuto vive in file JSON separati — niente CMS, niente account, solo file.",
   "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&auto=format&fit=crop",

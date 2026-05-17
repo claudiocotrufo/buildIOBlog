@@ -1,5 +1,5 @@
 import { Component, OnInit, signal, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 export interface BlogPost {
@@ -20,13 +20,27 @@ export interface BlogPost {
 })
 export class HomeComponent implements OnInit {
   private http = inject(HttpClient);
+  private route = inject(ActivatedRoute);
 
   posts = signal<BlogPost[]>([]);
   loading = signal(true);
   error = signal<string | null>(null);
+  pageTitle = signal('Il Codex');
+  pageSubtitle = signal("Frammenti dall'abisso — articoli, idee, riflessioni");
 
   ngOnInit() {
-    this.http.get<BlogPost[]>('/api/posts').subscribe({
+    const data = this.route.snapshot.data;
+
+    if (data['title'])    this.pageTitle.set(data['title']);
+    if (data['subtitle']) this.pageSubtitle.set(data['subtitle']);
+
+    const params = new URLSearchParams();
+    if (data['category']) params.set('category', data['category']);
+    if (data['tag'])      params.set('tag', data['tag']);
+
+    const url = params.toString() ? `/api/posts?${params}` : '/api/posts';
+
+    this.http.get<BlogPost[]>(url).subscribe({
       next: (posts) => {
         this.posts.set(posts);
         this.loading.set(false);

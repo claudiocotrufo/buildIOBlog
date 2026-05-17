@@ -25,8 +25,12 @@ function loadPost(slug) {
 
 // --- API routes ---
 
-app.get('/api/posts', (_req, res) => {
-  res.json(loadAllPosts());
+app.get('/api/posts', (req, res) => {
+  let posts = loadAllPosts();
+  const { category, tag } = req.query;
+  if (category) posts = posts.filter(p => p.category === category);
+  if (tag)      posts = posts.filter(p => Array.isArray(p.tags) && p.tags.includes(tag));
+  res.json(posts);
 });
 
 app.get('/api/posts/:slug', (req, res) => {

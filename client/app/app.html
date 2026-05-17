@@ -1,25 +1,95 @@
-<header class="site-header">
-  <div class="header-wrap">
-    <a routerLink="/" class="site-logo">
-      <span class="logo-rune">❧</span>
-      <span class="logo-name">MyBlog</span>
-      <span class="logo-rune">❧</span>
+<!-- Backdrop (mobile) -->
+<div class="sidebar-backdrop" [class.open]="sidebarOpen()" (click)="closeSidebar()"></div>
+
+<!-- ── Sidebar ─────────────────────────────────────────────────────────────── -->
+<aside class="sidebar" [class.open]="sidebarOpen()">
+
+  <div class="sidebar-brand">
+    <a routerLink="/" class="brand-link" (click)="closeSidebar()">
+      <span class="brand-rune">❧</span>
+      <span class="brand-name">Il Codex</span>
+      <span class="brand-rune">❧</span>
     </a>
-    <nav>
-      <a routerLink="/" class="nav-link">Chroniques</a>
-    </nav>
+    <button class="sidebar-close" (click)="closeSidebar()" aria-label="Chiudi menu">✕</button>
   </div>
-</header>
 
-<main class="site-main">
-  <router-outlet />
-</main>
-
-<footer class="site-footer">
-  <div class="footer-sigil">
-    <span class="sigil-line"></span>
-    <span class="sigil-glyph">✦ ❧ ✦</span>
-    <span class="sigil-line"></span>
+  <div class="sidebar-divider">
+    <span class="div-line"></span>
+    <span class="div-glyph">✦</span>
+    <span class="div-line"></span>
   </div>
-  <p class="footer-text">© 2026 MyBlog &ensp;·&ensp; <em>In memoria aeterna</em></p>
-</footer>
+
+  <nav class="sidebar-nav">
+
+    <a routerLink="/"
+       routerLinkActive="active"
+       [routerLinkActiveOptions]="{ exact: true }"
+       class="nav-item"
+       (click)="closeSidebar()">
+      <span class="nav-glyph">◈</span>
+      <span class="nav-label">Tutti gli Articoli</span>
+    </a>
+
+    <div class="nav-group">
+      <span class="nav-group-title">Warhammer</span>
+
+      <a routerLink="/warhammer"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }"
+         class="nav-item nav-item--sub"
+         (click)="closeSidebar()">
+        <span class="nav-glyph">⚔</span>
+        <span class="nav-label">Age of Sigmar</span>
+      </a>
+
+      <a routerLink="/warhammer/colette"
+         routerLinkActive="active"
+         class="nav-item nav-item--sub nav-item--deeper"
+         (click)="closeSidebar()">
+        <span class="nav-glyph">✦</span>
+        <span class="nav-label">Colette Castell</span>
+      </a>
+    </div>
+
+    <a routerLink="/sessioni"
+       routerLinkActive="active"
+       class="nav-item"
+       (click)="closeSidebar()">
+      <span class="nav-glyph">◉</span>
+      <span class="nav-label">Sessioni & Lore</span>
+    </a>
+
+  </nav>
+
+  <div class="sidebar-epitaph">
+    <em>In memoria aeterna</em>
+  </div>
+
+</aside>
+
+<!-- ── Layout main ────────────────────────────────────────────────────────── -->
+<div class="layout-main">
+
+  <header class="site-header">
+    <button class="hamburger" (click)="toggleSidebar()" aria-label="Apri menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="header-ornament">✦ ── ❧ ── ✦</div>
+  </header>
+
+  <main class="site-main">
+    <router-outlet />
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-sigil">
+      <span class="sigil-line"></span>
+      <span class="sigil-glyph">✦ ❧ ✦</span>
+      <span class="sigil-line"></span>
+    </div>
+    <p class="footer-text">© 2026 Il Codex &ensp;·&ensp; <em>In memoria aeterna</em></p>
+  </footer>
+
+</div>

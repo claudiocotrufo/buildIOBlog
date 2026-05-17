@@ -33,8 +33,12 @@ function loadPost(slug: string) {
 
 // --- API routes ---
 
-app.get('/api/posts', (_req, res) => {
-  res.json(loadAllPosts());
+app.get('/api/posts', (req, res) => {
+  let posts = loadAllPosts();
+  const { category, tag } = req.query as { category?: string; tag?: string };
+  if (category) posts = posts.filter((p: any) => p.category === category);
+  if (tag)      posts = posts.filter((p: any) => Array.isArray(p.tags) && p.tags.includes(tag));
+  res.json(posts);
 });
 
 app.get('/api/posts/:slug', (req, res) => {

@@ -1,61 +1,249 @@
+$sidebar-w: 260px;
+
+/* ─── Sidebar backdrop (mobile) ──────────────────────────────────────────── */
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 3, 7, 0.75);
+  z-index: 90;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+
+  @media (max-width: 900px) {
+    display: block;
+    &.open { opacity: 1; pointer-events: auto; }
+  }
+}
+
+/* ─── Sidebar ─────────────────────────────────────────────────────────────── */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: $sidebar-w;
+  height: 100vh;
+  background: var(--abyss);
+  border-right: 1px solid var(--gold-dim);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+
+  @media (max-width: 900px) {
+    transform: translateX(-100%);
+    &.open { transform: translateX(0); }
+  }
+
+  /* Brand */
+  .sidebar-brand {
+    padding: 1.6rem 1.4rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .brand-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    transition: opacity 0.2s;
+    &:hover { opacity: 0.8; }
+  }
+
+  .brand-rune {
+    color: var(--gold);
+    font-size: 0.9rem;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  .brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--parchment);
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  .sidebar-close {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.25rem 0.4rem;
+    line-height: 1;
+    transition: color 0.2s;
+    &:hover { color: var(--gold); }
+
+    @media (max-width: 900px) { display: block; }
+  }
+
+  /* Divider */
+  .sidebar-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0 1.4rem 1.2rem;
+    flex-shrink: 0;
+
+    .div-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+    }
+    .div-glyph {
+      color: var(--gold-dim);
+      font-size: 0.65rem;
+    }
+  }
+
+  /* Nav */
+  .sidebar-nav {
+    flex: 1;
+    padding: 0 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .nav-group {
+    margin: 0.8rem 0 0.4rem;
+
+    .nav-group-title {
+      display: block;
+      font-family: 'Crimson Text', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      padding: 0 0.6rem 0.45rem;
+    }
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 2px;
+    text-decoration: none;
+    color: var(--muted);
+    font-family: 'Crimson Text', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.03em;
+    transition: color 0.2s, background 0.2s;
+    border-left: 2px solid transparent;
+
+    &:hover {
+      color: var(--parchment);
+      background: rgba(200, 168, 75, 0.06);
+    }
+
+    &.active {
+      color: var(--gold);
+      border-left-color: var(--gold);
+      background: rgba(200, 168, 75, 0.08);
+    }
+
+    &--sub { padding-left: 1.1rem; font-size: 0.98rem; }
+    &--deeper { padding-left: 1.8rem; font-size: 0.92rem; }
+  }
+
+  .nav-glyph {
+    font-size: 0.75rem;
+    color: var(--gold-dim);
+    flex-shrink: 0;
+    width: 1em;
+    text-align: center;
+    transition: color 0.2s;
+  }
+
+  .nav-item:hover .nav-glyph,
+  .nav-item.active .nav-glyph { color: var(--gold); }
+
+  /* Epitaph */
+  .sidebar-epitaph {
+    padding: 1.4rem 1.4rem 2rem;
+    font-family: 'Crimson Text', serif;
+    font-size: 0.82rem;
+    color: rgba(138, 122, 90, 0.45);
+    font-style: italic;
+    text-align: center;
+    flex-shrink: 0;
+  }
+}
+
+/* ─── Layout main ────────────────────────────────────────────────────────── */
+.layout-main {
+  margin-left: $sidebar-w;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 900px) { margin-left: 0; }
+}
+
 /* ─── Header ─────────────────────────────────────────────────────────────── */
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 100;
-  background: linear-gradient(180deg, var(--void) 0%, rgba(5,3,7,0.96) 100%);
+  z-index: 80;
+  background: linear-gradient(180deg, var(--void) 0%, rgba(5, 3, 7, 0.94) 100%);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--gold-dim);
+  height: 54px;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  gap: 1.2rem;
 
-  .header-wrap {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2.5rem;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.3rem;
+    flex-shrink: 0;
+
+    span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--muted);
+      transition: background 0.2s;
+    }
+    &:hover span { background: var(--gold); }
+
+    @media (max-width: 900px) { display: flex; }
   }
 
-  .site-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    text-decoration: none;
-    transition: opacity 0.25s;
-    &:hover { opacity: 0.8; }
-
-    .logo-rune {
-      color: var(--gold);
-      font-size: 1rem;
-      line-height: 1;
-      animation: shimmer 3s ease-in-out infinite;
-    }
-
-    .logo-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.55rem;
-      font-weight: 700;
-      color: var(--parchment);
-      letter-spacing: 0.06em;
-    }
-  }
-
-  .nav-link {
+  .header-ornament {
+    flex: 1;
     font-family: 'Crimson Text', serif;
-    font-size: 0.85rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    transition: color 0.2s;
-    &:hover { color: var(--gold); }
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: rgba(200, 168, 75, 0.18);
+    text-align: center;
+    user-select: none;
+
+    @media (max-width: 600px) { display: none; }
   }
 }
 
 /* ─── Main ───────────────────────────────────────────────────────────────── */
 .site-main {
-  min-height: calc(100vh - 70px - 110px);
+  flex: 1;
 }
 
 /* ─── Footer ─────────────────────────────────────────────────────────────── */
@@ -91,6 +279,6 @@
     font-size: 0.9rem;
     color: var(--muted);
     letter-spacing: 0.04em;
-    em { color: rgba(200,168,75,0.45); font-style: italic; }
+    em { color: rgba(200, 168, 75, 0.45); font-style: italic; }
   }
 }
