@@ -1,0 +1,10 @@
+{
+  "id": "1",
+  "slug": "benvenuto-nel-blog",
+  "title": "Benvenuto nel blog",
+  "blurb": "Il primo articolo del blog. Da qui in poi tutto il contenuto vive in file JSON separati — niente CMS, niente account, solo file.",
+  "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&auto=format&fit=crop",
+  "author": "Claudio",
+  "date": "2026-05-17",
+  "content": "<p>Benvenuto nel blog! Questo articolo è salvato nel file <code>data/posts/benvenuto-nel-blog.json</code>.</p><p>Per aggiungere un nuovo articolo, crea un nuovo file JSON nella cartella <code>data/posts/</code>. Il nome del file diventa lo slug dell'URL.</p><h2>Struttura di un articolo</h2><pre><code>{\n  \"id\": \"3\",\n  \"slug\": \"mio-nuovo-articolo\",\n  \"title\": \"Titolo\",\n  \"blurb\": \"Descrizione breve\",\n  \"author\": \"Nome\",\n  \"date\": \"2026-05-18\",\n  \"content\": \"&lt;p&gt;Contenuto HTML&lt;/p&gt;\"\n}</code></pre><p>Salva il file, il server lo legge subito — nessun riavvio necessario.</p>"
+}

@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "set-env": "node scripts/set-env.js",
-    "start": "npm run set-env && ng analytics off && ng serve",
-    "build": "npm run set-env && ng build",
-    "watch": "npm run set-env && ng build --watch --configuration development",
+    "start": "ng analytics off && ng serve --proxy-config proxy.conf.json",
+    "serve:api": "node server/dev-api-server.mjs",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:builder-blog": "node dist/builder-blog/server/server.mjs"
   },

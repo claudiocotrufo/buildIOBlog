@@ -15,7 +15,7 @@
   </div>
 }
 
-@if (!loading() && content()) {
+@if (!loading() && post()) {
   <div class="pb-20">
 
     <div class="max-w-3xl mx-auto px-6 pt-12 pb-8">
@@ -23,36 +23,30 @@
         ← Tutti gli articoli
       </a>
 
-      @if (content()?.data?.['title']) {
-        <h1 class="text-4xl sm:text-5xl font-extrabold text-[#1a1a2e] tracking-tight leading-tight mt-6 mb-4">
-          {{ content()?.data?.['title'] }}
-        </h1>
-      }
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-[#1a1a2e] tracking-tight leading-tight mt-6 mb-4">
+        {{ post()!.title }}
+      </h1>
 
       <div class="flex gap-4 text-sm text-gray-400">
-        @if (content()?.data?.['author']) {
-          <span class="font-semibold">{{ content()?.data?.['author'] }}</span>
+        @if (post()!.author) {
+          <span class="font-semibold">{{ post()!.author }}</span>
         }
-        @if (content()?.data?.['date']) {
-          <span>{{ formatDate(content()?.data?.['date']) }}</span>
+        @if (post()!.date) {
+          <span>{{ formatDate(post()!.date) }}</span>
         }
       </div>
     </div>
 
-    @if (content()?.data?.['image']) {
+    @if (post()!.image) {
       <div class="max-w-6xl mx-auto px-6 mb-12">
-        <img [src]="content()?.data?.['image']"
-             [alt]="content()?.data?.['title'] ?? 'Immagine articolo'"
+        <img [src]="post()!.image"
+             [alt]="post()!.title"
              class="w-full max-h-[500px] object-cover rounded-xl" />
       </div>
     }
 
-    <div class="builder-wrap max-w-3xl mx-auto px-6">
-      <builder-content
-        [content]="content()!"
-        [model]="'blog-article'"
-        [apiKey]="apiKey"
-      />
+    <div class="prose prose-lg max-w-3xl mx-auto px-6"
+         [innerHTML]="post()!.content">
     </div>
 
   </div>

@@ -6,23 +6,45 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
+import { readFileSync, readdirSync } from 'node:fs';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
+const postsDir = join(process.cwd(), 'db/posts');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
-/**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/{*splat}', (req, res) => {
- *   // Handle API request
- * });
- * ```
- */
+// --- Repository (swap this with Firebase/Cosmos in the future) ---
+
+function loadAllPosts() {
+  return readdirSync(postsDir)
+    .filter((f: string) => f.endsWith('.json'))
+    .map((f: string) => JSON.parse(readFileSync(join(postsDir, f), 'utf-8')))
+    .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+function loadPost(slug: string) {
+  try {
+    return JSON.parse(readFileSync(join(postsDir, `${slug}.json`), 'utf-8'));
+  } catch {
+    return null;
+  }
+}
+
+// --- API routes ---
+
+app.get('/api/posts', (_req, res) => {
+  res.json(loadAllPosts());
+});
+
+app.get('/api/posts/:slug', (req, res) => {
+  const post = loadPost(req.params['slug']);
+  if (post) {
+    res.json(post);
+  } else {
+    res.status(404).json({ error: 'Not found' });
+  }
+});
 
 /**
  * Serve static files from /browser

@@ -1,0 +1,10 @@
+{
+  "id": "2",
+  "slug": "angular-ssr-come-funziona",
+  "title": "Angular e SSR: come funziona",
+  "blurb": "Un'introduzione al Server Side Rendering con Angular. Cosa cambia, perché usarlo e come è configurato in questo progetto.",
+  "image": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&auto=format&fit=crop",
+  "author": "Claudio",
+  "date": "2026-05-17",
+  "content": "<p>Il Server Side Rendering (SSR) permette di generare le pagine HTML lato server prima di inviarle al browser. Questo migliora le performance percepite e il SEO.</p><h2>Come funziona in Angular</h2><p>Angular usa <strong>@angular/ssr</strong> per gestire il rendering lato server. Quando una richiesta arriva al server, Angular genera l'HTML completo e lo invia al browser. Il browser poi \"idrata\" la pagina rendendola interattiva.</p><h2>Vantaggi</h2><ul><li>Caricamento iniziale più veloce</li><li>Migliore indicizzazione dai motori di ricerca</li><li>Funziona anche senza JavaScript attivo</li></ul><p>In questo progetto l'SSR è già configurato — puoi vederlo in <code>src/server.ts</code>.</p>"
+}

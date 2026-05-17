@@ -1,7 +1,7 @@
 <section class="bg-[#1a1a2e] py-20 text-center">
   <div class="max-w-6xl mx-auto px-6">
     <h1 class="text-5xl sm:text-6xl font-extrabold text-white tracking-tight mb-4">Il Blog</h1>
-    <p class="text-lg text-white/50">Articoli, idee e riflessioni gestiti con Builder.io</p>
+    <p class="text-lg text-white/50">Articoli, idee e riflessioni</p>
   </div>
 </section>
 
@@ -24,46 +24,42 @@
     @if (!loading() && !error()) {
       @if (posts().length === 0) {
         <div class="flex flex-col items-center gap-6 py-24 text-gray-400">
-          <p>Nessun articolo trovato. Crea il tuo primo post su Builder.io!</p>
-          <a href="https://builder.io/content" target="_blank"
-             class="px-6 py-3 bg-[#e94560] text-white rounded-lg font-semibold text-sm hover:opacity-85 transition-opacity">
-            Vai a Builder.io
-          </a>
+          <p>Nessun articolo trovato. Aggiungi il primo post in <code>data/posts/</code>.</p>
         </div>
       } @else {
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           @for (post of posts(); track post.id) {
             <article class="bg-white rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden">
 
-              @if (post.data?.image) {
-                <a [routerLink]="['/blog', getSlug(post)]" class="block aspect-video overflow-hidden">
-                  <img [src]="post.data.image" [alt]="post.data?.title ?? post.name"
+              @if (post.image) {
+                <a [routerLink]="['/blog', post.slug]" class="block aspect-video overflow-hidden">
+                  <img [src]="post.image" [alt]="post.title"
                        class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
                 </a>
               }
 
               <div class="p-6">
                 <div class="flex gap-3 text-xs text-gray-400 mb-2">
-                  @if (post.data?.author) {
-                    <span class="font-semibold">{{ post.data.author }}</span>
+                  @if (post.author) {
+                    <span class="font-semibold">{{ post.author }}</span>
                   }
-                  @if (post.data?.date) {
-                    <span>{{ formatDate(post.data.date) }}</span>
+                  @if (post.date) {
+                    <span>{{ formatDate(post.date) }}</span>
                   }
                 </div>
 
                 <h2 class="text-lg font-bold leading-snug tracking-tight mb-2">
-                  <a [routerLink]="['/blog', getSlug(post)]"
+                  <a [routerLink]="['/blog', post.slug]"
                      class="text-[#1a1a2e] hover:text-[#e94560] transition-colors">
-                    {{ post.data?.title ?? post.name }}
+                    {{ post.title }}
                   </a>
                 </h2>
 
-                @if (post.data?.blurb) {
-                  <p class="text-gray-500 text-sm leading-relaxed line-clamp-3 mb-4">{{ post.data.blurb }}</p>
+                @if (post.blurb) {
+                  <p class="text-gray-500 text-sm leading-relaxed line-clamp-3 mb-4">{{ post.blurb }}</p>
                 }
 
-                <a [routerLink]="['/blog', getSlug(post)]"
+                <a [routerLink]="['/blog', post.slug]"
                    class="text-sm font-semibold text-[#e94560] hover:opacity-75 transition-opacity">
                   Leggi l'articolo →
                 </a>
