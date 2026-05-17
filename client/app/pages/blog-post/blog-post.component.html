@@ -1,53 +1,68 @@
 @if (loading()) {
-  <div class="flex flex-col items-center gap-4 py-24 text-gray-400">
-    <div class="w-9 h-9 rounded-full border-[3px] border-gray-200 border-t-[#e94560] animate-spin"></div>
-    <p>Caricamento articolo...</p>
+  <div class="post-state">
+    <div class="spinner-gold"></div>
+    <p class="state-msg">Consultando il Codex…</p>
   </div>
 }
 
 @if (!loading() && notFound()) {
-  <div class="flex flex-col items-center gap-5 py-24 text-gray-400">
-    <h2 class="text-2xl font-bold text-[#1a1a2e]">Articolo non trovato</h2>
-    <p>L'articolo che cerchi non esiste o è stato rimosso.</p>
-    <a routerLink="/" class="px-6 py-3 bg-[#1a1a2e] text-white rounded-lg font-semibold text-sm hover:opacity-85 transition-opacity">
-      ← Torna alla home
-    </a>
+  <div class="post-state">
+    <p class="not-found-glyph">⁂</p>
+    <h2 class="not-found-title">Frammento Perduto</h2>
+    <p class="not-found-sub">Questo frammento non esiste o è stato inghiottito dall'oblio.</p>
+    <a routerLink="/" class="back-link">← Torna al Codex</a>
   </div>
 }
 
 @if (!loading() && post()) {
-  <div class="pb-20">
 
-    <div class="max-w-3xl mx-auto px-6 pt-12 pb-8">
-      <a routerLink="/" class="text-sm font-semibold text-[#e94560] hover:opacity-75 transition-opacity">
-        ← Tutti gli articoli
-      </a>
-
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-[#1a1a2e] tracking-tight leading-tight mt-6 mb-4">
-        {{ post()!.title }}
-      </h1>
-
-      <div class="flex gap-4 text-sm text-gray-400">
-        @if (post()!.author) {
-          <span class="font-semibold">{{ post()!.author }}</span>
-        }
-        @if (post()!.date) {
-          <span>{{ formatDate(post()!.date) }}</span>
-        }
-      </div>
+  <!-- ── Image header ──────────────────────────────────────────────────── -->
+  @if (post()!.image) {
+    <div class="post-header-image">
+      <img [src]="post()!.image" [alt]="post()!.title" class="header-img" />
+      <div class="header-veil"></div>
     </div>
+  }
 
-    @if (post()!.image) {
-      <div class="max-w-6xl mx-auto px-6 mb-12">
-        <img [src]="post()!.image"
-             [alt]="post()!.title"
-             class="w-full max-h-[500px] object-cover rounded-xl" />
+  <!-- ── Article ────────────────────────────────────────────────────────── -->
+  <article class="post-article">
+    <div class="article-inner">
+
+      <a routerLink="/" class="back-link">← Torna al Codex</a>
+
+      <div class="article-title-block">
+        <div class="title-ornament">
+          <span class="orn-line"></span>
+          <span class="orn-glyph">✦</span>
+          <span class="orn-line"></span>
+        </div>
+
+        <h1 class="article-title">{{ post()!.title }}</h1>
+
+        <div class="article-meta">
+          @if (post()!.author) {
+            <span class="meta-author">{{ post()!.author }}</span>
+          }
+          @if (post()!.author && post()!.date) {
+            <span class="meta-sep">·</span>
+          }
+          @if (post()!.date) {
+            <span class="meta-date">{{ formatDate(post()!.date) }}</span>
+          }
+        </div>
+
+        <div class="title-ornament bottom">
+          <span class="orn-line"></span>
+          <span class="orn-glyph">❧</span>
+          <span class="orn-line"></span>
+        </div>
       </div>
-    }
 
-    <div class="prose prose-lg max-w-3xl mx-auto px-6"
-         [innerHTML]="post()!.content">
+      <div class="prose-grimoire article-prose"
+           [innerHTML]="post()!.content">
+      </div>
+
     </div>
+  </article>
 
-  </div>
 }

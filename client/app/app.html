@@ -1,21 +1,25 @@
-<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-gray-200">
-  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a routerLink="/" class="flex items-center gap-2 text-xl font-bold text-[#1a1a2e] hover:opacity-75 transition-opacity">
-      <span class="w-2 h-2 rounded-full bg-[#e94560]"></span>
-      MyBlog
+<header class="site-header">
+  <div class="header-wrap">
+    <a routerLink="/" class="site-logo">
+      <span class="logo-rune">❧</span>
+      <span class="logo-name">MyBlog</span>
+      <span class="logo-rune">❧</span>
     </a>
     <nav>
-      <a routerLink="/" class="text-gray-500 text-sm font-medium hover:text-gray-900 transition-colors">Home</a>
+      <a routerLink="/" class="nav-link">Chroniques</a>
     </nav>
   </div>
 </header>
 
-<main class="min-h-[calc(100vh-64px-60px)]">
+<main class="site-main">
   <router-outlet />
 </main>
 
-<footer class="border-t border-gray-200 py-5 text-center">
-  <p class="text-gray-400 text-sm">
-    © 2026 MyBlog — Angular SSR
-  </p>
+<footer class="site-footer">
+  <div class="footer-sigil">
+    <span class="sigil-line"></span>
+    <span class="sigil-glyph">✦ ❧ ✦</span>
+    <span class="sigil-line"></span>
+  </div>
+  <p class="footer-text">© 2026 MyBlog &ensp;·&ensp; <em>In memoria aeterna</em></p>
 </footer>

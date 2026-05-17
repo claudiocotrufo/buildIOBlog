@@ -1,6 +1,140 @@
 @import "tailwindcss";
 
-@theme {
-  --color-primary: #1a1a2e;
-  --color-accent: #e94560;
+/* ─── Tokens ─────────────────────────────────────────────────────────────── */
+:root {
+  --void:        #050307;
+  --abyss:       #0a0610;
+  --depths:      #120d1e;
+  --surface:     #1a1230;
+  --veil:        #251840;
+
+  --gold:        #c8a84b;
+  --gold-light:  #e8d08a;
+  --gold-pale:   #f5ead0;
+  --gold-dim:    rgba(200, 168, 75, 0.25);
+  --gold-glow:   rgba(200, 168, 75, 0.12);
+
+  --parchment:   #f0e6cc;
+  --parchment-2: #c8b894;
+  --muted:       #8a7a5a;
+  --purple:      #7a50aa;
+  --crimson:     #8a2030;
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Crimson Text', Georgia, serif;
+  background-color: var(--void);
+  color: var(--parchment);
+  font-size: 18px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', Georgia, serif;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+}
+
+a {
+  color: var(--gold);
+  text-decoration: none;
+  transition: color 0.2s;
+  &:hover { color: var(--gold-light); }
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 6px; }
+::-webkit-scrollbar-track  { background: var(--abyss); }
+::-webkit-scrollbar-thumb  { background: rgba(200,168,75,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* ─── Spinner ────────────────────────────────────────────────────────────── */
+@keyframes spin    { to { transform: rotate(360deg); } }
+@keyframes fadeUp  { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes shimmer { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+.spinner-gold {
+  width: 36px; height: 36px;
+  border: 2px solid var(--surface);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+/* ─── Prose — used with [innerHTML] so must be global ───────────────────── */
+.prose-grimoire {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 1.2rem;
+  line-height: 1.85;
+  color: var(--parchment);
+
+  p    { margin-bottom: 1.6em; }
+  h2   {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    color: var(--gold-light);
+    margin: 2.5em 0 0.7em;
+    padding-bottom: 0.4em;
+    border-bottom: 1px solid var(--gold-dim);
+  }
+  h3   {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: var(--gold);
+    margin: 2em 0 0.6em;
+  }
+  ul, ol {
+    margin-bottom: 1.5em;
+    padding-left: 1.6em;
+    li       { margin-bottom: 0.35em; }
+    li::marker { color: var(--gold); }
+  }
+  strong { color: var(--gold-light); font-weight: 600; }
+  em     { color: var(--parchment-2); font-style: italic; }
+  code   {
+    font-family: 'Courier New', monospace;
+    font-size: 0.82em;
+    background: var(--depths);
+    color: var(--gold);
+    padding: 0.15em 0.45em;
+    border-radius: 3px;
+    border: 1px solid var(--gold-dim);
+  }
+  pre {
+    background: var(--abyss);
+    border: 1px solid var(--gold-dim);
+    border-left: 3px solid var(--gold);
+    padding: 1.5em;
+    border-radius: 2px;
+    overflow-x: auto;
+    margin-bottom: 1.5em;
+    code { background: none; border: none; padding: 0; font-size: 0.9rem; color: var(--parchment-2); }
+  }
+  blockquote {
+    border-left: 3px solid var(--gold);
+    padding: 0.5em 1.5em;
+    margin: 1.5em 0;
+    color: var(--parchment-2);
+    font-style: italic;
+    background: var(--depths);
+  }
+
+  /* Drop cap */
+  > p:first-of-type::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: var(--gold);
+    float: left;
+    line-height: 0.75;
+    margin-right: 0.1em;
+    margin-top: 0.12em;
+  }
 }

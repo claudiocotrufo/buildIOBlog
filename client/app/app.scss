@@ -1,1 +1,96 @@
+/* ─── Header ─────────────────────────────────────────────────────────────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: linear-gradient(180deg, var(--void) 0%, rgba(5,3,7,0.96) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--gold-dim);
 
+  .header-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .site-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none;
+    transition: opacity 0.25s;
+    &:hover { opacity: 0.8; }
+
+    .logo-rune {
+      color: var(--gold);
+      font-size: 1rem;
+      line-height: 1;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    .logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--parchment);
+      letter-spacing: 0.06em;
+    }
+  }
+
+  .nav-link {
+    font-family: 'Crimson Text', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.2s;
+    &:hover { color: var(--gold); }
+  }
+}
+
+/* ─── Main ───────────────────────────────────────────────────────────────── */
+.site-main {
+  min-height: calc(100vh - 70px - 110px);
+}
+
+/* ─── Footer ─────────────────────────────────────────────────────────────── */
+.site-footer {
+  padding: 2.5rem 2rem 2rem;
+  text-align: center;
+  border-top: 1px solid var(--gold-dim);
+  background: var(--abyss);
+
+  .footer-sigil {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-bottom: 1rem;
+
+    .sigil-line {
+      display: block;
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+    }
+
+    .sigil-glyph {
+      color: var(--gold-dim);
+      font-size: 0.85rem;
+      letter-spacing: 0.3em;
+    }
+  }
+
+  .footer-text {
+    font-family: 'Crimson Text', serif;
+    font-size: 0.9rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    em { color: rgba(200,168,75,0.45); font-style: italic; }
+  }
+}
